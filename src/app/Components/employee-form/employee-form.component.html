@@ -1,0 +1,40 @@
+<div class="container">
+<div class="employee-form-container">
+  <h2 class="form-title">{{ isEdit ? 'Edit Employee' : 'Add Employee' }}</h2>
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="styled-form">
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName" class="form-input" />
+      <div *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched" class="error">First name is required.</div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" formControlName="lastName" class="form-input" />
+      <div *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched" class="error">Last name is required.</div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" class="form-input" />
+      <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" class="error">Valid email is required.</div>
+    </div>
+    <div class="form-group">
+      <label for="position">Position:</label>
+      <select id="position" formControlName="position" class="form-input">
+        <option value="" disabled selected>Select position</option>
+        <option value="Frontend Developer">Frontend Developer</option>
+        <option value="Backend Developer">Backend Developer</option>
+        <option value="UI Designer">UI Designer</option>
+        <option value="HR Manager">HR Manager</option>
+        <option value="QA Engineer">QA Engineer</option>
+      </select>
+      <div *ngIf="employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched" class="error">Position is required.</div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" [disabled]="employeeForm.invalid" class="btn primary-btn">{{ isEdit ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="cancel()" class="btn cancel-btn">Cancel</button>
+    </div>
+  </form>
+  <div *ngIf="feedback" class="feedback">{{ feedback }}</div>
+</div>
+
+</div>

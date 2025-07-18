@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="employee-list-container">
+  <div class="header-row">
+    <h2>Employee List</h2>
+    <a routerLink="/employees/add" class="btn primary-btn">+ Add Employee</a>
+  </div>
+  <div class="filter-row">
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search employees..." class="filter-input" />
+    </div>
+  </div>
+  <div *ngIf="loading" class="loading-spinner">
+    <span class="spinner"></span> Loading...
+  </div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <table *ngIf="filteredEmployees.length" class="employee-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Position</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of paginatedEmployees">
+        <td>{{ emp.firstName+ " " + emp.lastName }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.position }}</td>
+        <td class="actions-cell">
+          <a [routerLink]="['/employees/edit', emp.id]" class="btn edit-btn">Edit</a>
+          <button (click)="deleteEmployee(emp.id)" class="btn delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!filteredEmployees.length && !loading" class="empty-message">
+    No employees found.
+  </div>
+
+  <div class="pagination-row" *ngIf="totalPages > 1">
+    <button class="btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">&laquo; Prev</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">Next &raquo;</button>
+  </div>
+</div>
+
+</div>
