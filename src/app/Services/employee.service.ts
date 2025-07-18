@@ -9,7 +9,7 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) {}
 
-  // Get paginated list of employees
+
   getEmployees(page: number = 1, pageSize: number = 10): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}?page=${page}&pageSize=${pageSize}`);
   }
